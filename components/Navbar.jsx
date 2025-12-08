@@ -3,12 +3,14 @@ import { useState } from "react";
 import Image from "next/image";
 import logo from "@/aassets/images/logo-white.png";
 import profileDefault from "@/aassets/images/profile.png";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setisProfileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -57,19 +59,25 @@ const Navbar = () => {
               <div className="flex space-x-2">
                 <Link
                   href="/"
-                  className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname === "/" ? "bg-black" : ""
+                  } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Home
                 </Link>
                 <Link
                   href="/properties"
-                  className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname === "/properties" ? "bg-black" : ""
+                  } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Properties
                 </Link>
                 <Link
                   href="/properties/add"
-                  className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname === "/properties/add" ? "bg-black" : ""
+                  } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Add Property
                 </Link>
@@ -105,7 +113,7 @@ const Navbar = () => {
                   aria-hidden="true"
                 >
                   <path
-                    L="round"
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                     d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                   />
@@ -186,19 +194,25 @@ const Navbar = () => {
           <div className="space-y-1 px-2 pb-3 pt-2">
             <Link
               href="/"
-              className="bg-black text-white block rounded-md px-3 py-2 text-base font-medium"
+              className={`${
+                pathname === "/" ? "bg-black" : ""
+              }text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Home
             </Link>
             <Link
               href="/properties"
-              className="text-white block rounded-md px-3 py-2 text-base font-medium"
+              className={`${
+                pathname === "/properties" ? "bg-black" : ""
+              }text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Properties
             </Link>
             <Link
               href="/properties/add"
-              className="text-white block rounded-md px-3 py-2 text-base font-medium"
+              className={`${
+                pathname === "/properties/add" ? "bg-black" : ""
+              }text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Add Property
             </Link>
