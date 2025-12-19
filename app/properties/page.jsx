@@ -1,6 +1,6 @@
 import PropertyCard from "@/components/PropertyCard";
 import connectDB from "@/config/database";
-import Property from "@/model.js/Property";
+import Property from "@/models/Property";
 import mongoose from "mongoose";
 
 const PropertiesPage = async () => {
