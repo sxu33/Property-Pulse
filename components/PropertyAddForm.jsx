@@ -1,10 +1,12 @@
+import addProperty from "@/app/actions/addProperty";
+
 const PropertyAddForm = () => {
   return (
-    <form>
+    <form action={addProperty}>
       <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
 
       <div className="mb-4">
-        <label forHtml="type" className="block text-gray-700 font-bold mb-2">
+        <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
           Property Type
         </label>
         <select
@@ -37,7 +39,7 @@ const PropertyAddForm = () => {
       </div>
       <div className="mb-4">
         <label
-          forHtml="description"
+          htmlFor="description"
           className="block text-gray-700 font-bold mb-2"
         >
           Description
@@ -87,7 +89,7 @@ const PropertyAddForm = () => {
 
       <div className="mb-4 flex flex-wrap">
         <div className="w-full sm:w-1/3 pr-2">
-          <label forHtml="beds" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="beds" className="block text-gray-700 font-bold mb-2">
             Beds
           </label>
           <input
@@ -99,7 +101,7 @@ const PropertyAddForm = () => {
           />
         </div>
         <div className="w-full sm:w-1/3 px-2">
-          <label forHtml="baths" className="block text-gray-700 font-bold mb-2">
+          <label htmlFor="baths" className="block text-gray-700 font-bold mb-2">
             Baths
           </label>
           <input
@@ -112,7 +114,7 @@ const PropertyAddForm = () => {
         </div>
         <div className="w-full sm:w-1/3 pl-2">
           <label
-            forHtml="square_feet"
+            htmlFor="square_feet"
             className="block text-gray-700 font-bold mb-2"
           >
             Square Feet
@@ -138,7 +140,7 @@ const PropertyAddForm = () => {
               value="Wifi"
               className="mr-2"
             />
-            <label forHtml="amenity_wifi">Wifi</label>
+            <label htmlFor="amenity_wifi">Wifi</label>
           </div>
           <div>
             <input
@@ -148,7 +150,7 @@ const PropertyAddForm = () => {
               value="Full kitchen"
               className="mr-2"
             />
-            <label forHtml="amenity_kitchen">Full kitchen</label>
+            <label htmlFor="amenity_kitchen">Full kitchen</label>
           </div>
           <div>
             <input
@@ -158,7 +160,7 @@ const PropertyAddForm = () => {
               value="Washer & Dryer"
               className="mr-2"
             />
-            <label forHtml="amenity_washer_dryer">Washer & Dryer</label>
+            <label htmlFor="amenity_washer_dryer">Washer & Dryer</label>
           </div>
           <div>
             <input
@@ -168,7 +170,7 @@ const PropertyAddForm = () => {
               value="Free Parking"
               className="mr-2"
             />
-            <label forHtml="amenity_free_parking">Free Parking</label>
+            <label htmlFor="amenity_free_parking">Free Parking</label>
           </div>
           <div>
             <input
@@ -178,7 +180,7 @@ const PropertyAddForm = () => {
               value="Swimming Pool"
               className="mr-2"
             />
-            <label forHtml="amenity_pool">Swimming Pool</label>
+            <label htmlFor="amenity_pool">Swimming Pool</label>
           </div>
           <div>
             <input
@@ -188,7 +190,7 @@ const PropertyAddForm = () => {
               value="Hot Tub"
               className="mr-2"
             />
-            <label forHtml="amenity_hot_tub">Hot Tub</label>
+            <label htmlFor="amenity_hot_tub">Hot Tub</label>
           </div>
           <div>
             <input
@@ -198,7 +200,7 @@ const PropertyAddForm = () => {
               value="24/7 Security"
               className="mr-2"
             />
-            <label forHtml="amenity_24_7_security">24/7 Security</label>
+            <label htmlFor="amenity_24_7_security">24/7 Security</label>
           </div>
           <div>
             <input
@@ -208,7 +210,7 @@ const PropertyAddForm = () => {
               value="Wheelchair Accessible"
               className="mr-2"
             />
-            <label forHtml="amenity_wheelchair_accessible">
+            <label htmlFor="amenity_wheelchair_accessible">
               Wheelchair Accessible
             </label>
           </div>
@@ -220,7 +222,7 @@ const PropertyAddForm = () => {
               value="Elevator Access"
               className="mr-2"
             />
-            <label forHtml="amenity_elevator_access">Elevator Access</label>
+            <label htmlFor="amenity_elevator_access">Elevator Access</label>
           </div>
           <div>
             <input
@@ -230,7 +232,7 @@ const PropertyAddForm = () => {
               value="Dishwasher"
               className="mr-2"
             />
-            <label forHtml="amenity_dishwasher">Dishwasher</label>
+            <label htmlFor="amenity_dishwasher">Dishwasher</label>
           </div>
           <div>
             <input
@@ -240,7 +242,7 @@ const PropertyAddForm = () => {
               value="Gym/Fitness Center"
               className="mr-2"
             />
-            <label forHtml="amenity_gym_fitness_center">
+            <label htmlFor="amenity_gym_fitness_center">
               Gym/Fitness Center
             </label>
           </div>
@@ -252,7 +254,7 @@ const PropertyAddForm = () => {
               value="Air Conditioning"
               className="mr-2"
             />
-            <label forHtml="amenity_air_conditioning">Air Conditioning</label>
+            <label htmlFor="amenity_air_conditioning">Air Conditioning</label>
           </div>
           <div>
             <input
@@ -262,7 +264,7 @@ const PropertyAddForm = () => {
               value="Balcony/Patio"
               className="mr-2"
             />
-            <label forHtml="amenity_balcony_patio">Balcony/Patio</label>
+            <label htmlFor="amenity_balcony_patio">Balcony/Patio</label>
           </div>
           <div>
             <input
@@ -272,7 +274,7 @@ const PropertyAddForm = () => {
               value="Smart TV"
               className="mr-2"
             />
-            <label forHtml="amenity_smart_tv">Smart TV</label>
+            <label htmlFor="amenity_smart_tv">Smart TV</label>
           </div>
           <div>
             <input
@@ -282,7 +284,7 @@ const PropertyAddForm = () => {
               value="Coffee Maker"
               className="mr-2"
             />
-            <label forHtml="amenity_coffee_maker">Coffee Maker</label>
+            <label htmlFor="amenity_coffee_maker">Coffee Maker</label>
           </div>
         </div>
       </div>
@@ -293,7 +295,7 @@ const PropertyAddForm = () => {
         </label>
         <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
           <div className="flex items-center">
-            <label forHtml="weekly_rate" className="mr-2">
+            <label htmlFor="weekly_rate" className="mr-2">
               Weekly
             </label>
             <input
@@ -304,7 +306,7 @@ const PropertyAddForm = () => {
             />
           </div>
           <div className="flex items-center">
-            <label forHtml="monthly_rate" className="mr-2">
+            <label htmlFor="monthly_rate" className="mr-2">
               Monthly
             </label>
             <input
@@ -315,7 +317,7 @@ const PropertyAddForm = () => {
             />
           </div>
           <div className="flex items-center">
-            <label forHtml="nightly_rate" className="mr-2">
+            <label htmlFor="nightly_rate" className="mr-2">
               Nightly
             </label>
             <input
@@ -330,7 +332,7 @@ const PropertyAddForm = () => {
 
       <div className="mb-4">
         <label
-          forHtml="seller_name"
+          htmlFor="seller_name"
           className="block text-gray-700 font-bold mb-2"
         >
           Seller Name
@@ -338,14 +340,14 @@ const PropertyAddForm = () => {
         <input
           type="text"
           id="seller_name"
-          name="seller_info.name."
+          name="seller_info.name"
           className="border rounded w-full py-2 px-3"
           placeholder="Name"
         />
       </div>
       <div className="mb-4">
         <label
-          forHtml="seller_email"
+          htmlFor="seller_email"
           className="block text-gray-700 font-bold mb-2"
         >
           Seller Email
@@ -361,7 +363,7 @@ const PropertyAddForm = () => {
       </div>
       <div className="mb-4">
         <label
-          forHtml="seller_phone"
+          htmlFor="seller_phone"
           className="block text-gray-700 font-bold mb-2"
         >
           Seller Phone
@@ -376,7 +378,7 @@ const PropertyAddForm = () => {
       </div>
 
       <div className="mb-4">
-        <label forHtml="images" className="block text-gray-700 font-bold mb-2">
+        <label htmlFor="images" className="block text-gray-700 font-bold mb-2">
           Images (Select up to 4 images)
         </label>
         <input
