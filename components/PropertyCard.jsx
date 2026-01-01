@@ -24,7 +24,7 @@ const PropertyCard = ({ property }) => {
     //    <!-- Listing 1 -->
     <div className="rounded-xl shadow-md w-full relative aspect-8/3">
       <Image
-        src={`/images/properties/${property.images[0]}`}
+        src={property.images[0]}
         alt=""
         className="w-full h-auto rounded-t-xl"
         width="0"
