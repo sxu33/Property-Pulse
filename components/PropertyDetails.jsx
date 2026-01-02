@@ -85,7 +85,7 @@ const PropertyDetails = ({ property }) => {
 
       <div className="bg-white p-6 rounded-lg shadow-md mt-6">
         <h3 className="text-lg font-bold mb-6">Amenities</h3>
-        {console.log(property.amenities)}
+
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 list-none">
           {property.amenities.map((amenity, index) => (
             <li key={index}>
