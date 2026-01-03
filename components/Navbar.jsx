@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import logo from "@/aassets/images/logo-white.png";
-import profileDefault from "@/aassets/images/profile.png";
+import logo from "@/assets/images/logo-white.png";
+import profileDefault from "@/assets/images/profile.png";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaGoogle } from "react-icons/fa";
@@ -15,8 +15,25 @@ const Navbar = () => {
   const [providers, setProviders] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
 
   const pathname = usePathname();
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log(event.target);
+      console.log(profileMenuRef.current);
+      if (!isProfileMenuOpen) return;
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => window.removeEventListener("mousedown", handleClickOutside);
+  }, [isProfileMenuOpen]);
 
   useEffect(() => {
     const setAuthProviders = async () => {
@@ -152,7 +169,7 @@ const Navbar = () => {
                 </span>
               </Link>
               {/* <!-- Profile dropdown button --> */}
-              <div className="relative ml-3">
+              <div className="relative ml-3" ref={profileMenuRef}>
                 <div>
                   <button
                     type="button"
@@ -190,6 +207,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Your Profile
                     </Link>
@@ -199,6 +217,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => setIsProfileMenuOpen(false)}
                     >
                       Saved Properties
                     </Link>
