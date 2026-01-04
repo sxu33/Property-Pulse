@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import deleteProperty from "@/app/actions/deleteProperty";
+import { toast } from "react-toastify";
 
 const ProfileProperties = ({ properties: initialProperties }) => {
   const [properties, setProperties] = useState(initialProperties);
@@ -15,6 +16,7 @@ const ProfileProperties = ({ properties: initialProperties }) => {
       (property) => property._id !== propertyId
     );
     setProperties(updatedProperty);
+    toast.success("Property Deleted Successfully");
   };
 
   if (properties.length === 0) return <p>You have no listings</p>;
