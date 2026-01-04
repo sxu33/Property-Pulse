@@ -1,17 +1,33 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import deleteProperty from "@/app/actions/deleteProperty";
 
-const ProfileProperties = ({ properties }) => {
+const ProfileProperties = ({ properties: initialProperties }) => {
+  const [properties, setProperties] = useState(initialProperties);
+  console.log(initialProperties);
+  const handleDeleteProperty = async function (propertyId) {
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (!confirmed) return;
+    await deleteProperty(propertyId);
+    const updatedProperty = properties.filter(
+      (property) => property._id !== propertyId
+    );
+    setProperties(updatedProperty);
+  };
+
   if (properties.length === 0) return <p>You have no listings</p>;
 
   return properties.map((property) => (
     <div key={property._id} className="mb-10">
       <Link href={`/properties/${property._id}`}>
-        <img
+        <Image
           className="h-32 w-full rounded-md object-cover"
           src={property.images[0]}
           alt="Property 1"
+          width={200}
+          height={200}
         />
       </Link>
       <div className="mt-2">
@@ -32,6 +48,7 @@ const ProfileProperties = ({ properties }) => {
         <button
           className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
           type="button"
+          onClick={() => handleDeleteProperty(property._id)}
         >
           Delete
         </button>
