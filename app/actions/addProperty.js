@@ -5,6 +5,7 @@ import { getSessionUser } from "@/utils/getSessionUser";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import cloudinary from "@/config/cloudinary";
+import { convertImageToBase64 } from "@/utils/convertToBase64";
 
 async function addProperty(formData) {
   await connectDB();
@@ -20,17 +21,8 @@ async function addProperty(formData) {
 
   const imageUrl = await Promise.all(
     images.map(async (image) => {
-      // 1. Transform to ArrayBuffer
-      const imageBuffer = await image.arrayBuffer();
+      const imageBase64 = await convertImageToBase64(image);
 
-      // 2. Transform to Node.js Buffer
-      const imageArray = Array.from(new Uint8Array(imageBuffer));
-      const imageData = Buffer.from(imageArray);
-
-      // 3.Transform to Base64
-      const imageBase64 = imageData.toString("base64");
-
-      // 4. upload to Cloudinary
       const result = await cloudinary.uploader.upload(
         `data:image/png;base64,${imageBase64}`,
         {
