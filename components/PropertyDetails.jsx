@@ -6,6 +6,7 @@ import {
   FaTimes,
   FaMapMarker,
 } from "react-icons/fa";
+import PropertyMapWrapper from "./PropertyMapWrapper";
 
 const PropertyDetails = ({ property }) => {
   return (
@@ -98,6 +99,7 @@ const PropertyDetails = ({ property }) => {
 
       <div className="bg-white p-6 rounded-lg shadow-md mt-6">
         <div id="map"></div>
+        <PropertyMapWrapper property={property} />
       </div>
     </main>
   );
