@@ -58,8 +58,8 @@ const PropertyPage = async ({ params, searchParams }) => {
                 property={property}
                 initialBookmarkStatus={initialBookmarkStatus}
               />
-              <ShareButtons />
-              <PropertyContactForm />
+              <ShareButtons property={property} />
+              <PropertyContactForm property={property} />
             </aside>
           </div>
         </div>
