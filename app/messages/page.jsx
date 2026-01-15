@@ -1,6 +1,7 @@
 import connectDB from "@/config/database";
 import { getSessionUser } from "@/utils/getSessionUser";
 import Message from "@/models/Message";
+import MessageCard from "@/components/MessageCard";
 import "@/models/Property";
 import { convertToSerializableObject } from "@/utils/convertToSerializableObject";
 
@@ -31,7 +32,7 @@ const MessagePage = async () => {
     message.property = convertToSerializableObject(messageDoc.property);
     return message;
   });
-
+  console.log(messages);
   return (
     <section className="bg-blue-50">
       <div className="container m-auto py-24 max-w-6xl">
@@ -43,7 +44,7 @@ const MessagePage = async () => {
               <p>You have no messages</p>
             ) : (
               messages.map((message) => (
-                <div key={message._id.toString()}>{message.name}</div>
+                <MessageCard key={message._id.toString()} message={message} />
               ))
             )}
           </div>
