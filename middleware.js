@@ -1,11 +1,9 @@
-export { default } from "next-auth/middleware";
+import { NextResponse } from "next/server";
+
+export default function proxy(request) {
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: [
-    "/properties/add",
-    "/profile",
-    "/properties/saved",
-    "/message",
-    "/properties/:id/edit",
-  ],
+  matcher: ["/profile", "/properties/add", "/properties/saved", "/messages"],
 };
