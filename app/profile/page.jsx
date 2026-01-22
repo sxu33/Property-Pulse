@@ -6,7 +6,7 @@ import profileDefault from "@/assets/images/profile.png";
 import ProfileProperties from "@/components/ProfileProperties";
 import { convertToSerializableObject } from "@/utils/convertToSerializableObject";
 import { Mail, User } from "lucide-react";
-
+export const dynamic = "force-dynamic";
 const ProfilePage = async () => {
   await connectDB();
   const sessionUser = await getSessionUser();
