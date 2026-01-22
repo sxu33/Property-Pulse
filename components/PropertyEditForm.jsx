@@ -4,6 +4,24 @@ import updateProperty from "@/app/actions/updateProperty";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import PropertyImageEdit from "@/components/PropertyImageEdit";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Home,
+  MapPin,
+  Bed,
+  Bath,
+  Maximize,
+  Sparkles,
+  DollarSign,
+  User,
+  Loader2,
+  FileText,
+  Type,
+} from "lucide-react";
 
 const PropertyEditForm = ({ property }) => {
   const [loading, setLoading] = useState(false);
@@ -57,262 +75,311 @@ const PropertyEditForm = ({ property }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-3xl text-center font-semibold mb-6">Edit Property</h2>
-
-      {/* 1. Type */}
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Property Type
-        </label>
-        <select
-          name="type"
-          defaultValue={property.type}
-          className="border rounded w-full py-2 px-3"
-          required
-        >
-          <option value="Apartment">Apartment</option>
-          <option value="Condo">Condo</option>
-          <option value="House">House</option>
-          <option value="CabinOrCottage">Cabin or Cottage</option>
-          <option value="Room">Room</option>
-          <option value="Studio">Studio</option>
-          <option value="Other">Other</option>
-        </select>
+    <form onSubmit={handleSubmit} className="max-w-4xl mx-auto py-8">
+      <div className="mb-10 border-b border-zinc-200 pb-6">
+        <h2 className="text-2xl font-bold text-zinc-900 tracking-tight">
+          Edit Property
+        </h2>
+        <p className="text-zinc-500 text-sm mt-1 font-light">
+          Update your listing details and manage your property.
+        </p>
       </div>
 
-      {/* 2. Name */}
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Listing Name
-        </label>
-        <input
-          type="text"
-          name="name"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="eg. Beautiful Apartment In Miami"
-          defaultValue={property.name}
-          required
-        />
-      </div>
+      <div className="space-y-10">
+        {/* 1. Type */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-1.5">
+            <Label className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+              <Home size={16} className="text-zinc-500" /> Property Type
+            </Label>
+            <select
+              name="type"
+              defaultValue={property.type}
+              className="flex h-10 w-full rounded-lg border border-zinc-300 bg-white px-3 py-1 text-zinc-900 font-medium focus:ring-1 focus:ring-black outline-none transition-all cursor-pointer"
+              required
+            >
+              <option value="Apartment">Apartment</option>
+              <option value="Condo">Condo</option>
+              <option value="House">House</option>
+              <option value="CabinOrCottage">Cabin or Cottage</option>
+              <option value="Room">Room</option>
+              <option value="Studio">Studio</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
 
-      {/* 3. Description */}
-      <div className="mb-4">
-        <label
-          htmlFor="description"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Description
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          className="border rounded w-full py-2 px-3"
-          rows="4"
-          placeholder="Add an optional description of your property"
-          defaultValue={property.description}
-        ></textarea>
-      </div>
-
-      {/* 4. Location */}
-      <div className="mb-4 bg-blue-50 p-4">
-        <label className="block text-gray-700 font-bold mb-2">Location</label>
-        <input
-          type="text"
-          name="location.street"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="Street"
-          defaultValue={property.location.street}
-        />
-        <input
-          type="text"
-          name="location.city"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="City"
-          required
-          defaultValue={property.location.city}
-        />
-        <input
-          type="text"
-          name="location.state"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="State"
-          required
-          defaultValue={property.location.state}
-        />
-        <input
-          type="text"
-          name="location.zipcode"
-          className="border rounded w-full py-2 px-3 mb-2"
-          placeholder="Zipcode"
-          defaultValue={property.location.zipcode}
-        />
-      </div>
-
-      {/* 5. Beds / Baths / Sqft */}
-      <div className="mb-4 flex flex-wrap">
-        <div className="w-full sm:w-1/3 pr-2">
-          <label className="block text-gray-700 font-bold mb-2">Beds</label>
-          <input
-            type="number"
-            name="beds"
-            className="border rounded w-full py-2 px-3"
-            required
-            defaultValue={property.beds}
-          />
+          {/* 2. Name */}
+          <div className="space-y-1.5">
+            <Label className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+              <Type size={16} className="text-zinc-500" /> Listing Name
+            </Label>
+            <Input
+              type="text"
+              name="name"
+              className="rounded-lg h-10 border-zinc-300 text-zinc-900 placeholder:text-zinc-400 focus-visible:ring-black"
+              placeholder="eg. Beautiful Apartment In Miami"
+              defaultValue={property.name}
+              required
+            />
+          </div>
         </div>
-        <div className="w-full sm:w-1/3 px-2">
-          <label className="block text-gray-700 font-bold mb-2">Baths</label>
-          <input
-            type="number"
-            name="baths"
-            className="border rounded w-full py-2 px-3"
-            required
-            defaultValue={property.baths}
-          />
-        </div>
-        <div className="w-full sm:w-1/3 pl-2">
-          <label className="block text-gray-700 font-bold mb-2">
-            Square Feet
-          </label>
-          <input
-            type="number"
-            name="square_feet"
-            className="border rounded w-full py-2 px-3"
-            required
-            defaultValue={property.square_feet}
-          />
-        </div>
-      </div>
 
-      {/* 6. Amenities */}
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Amenities</label>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-          {[
-            "Wifi",
-            "Full kitchen",
-            "Washer & Dryer",
-            "Free Parking",
-            "Swimming Pool",
-            "Hot Tub",
-            "24/7 Security",
-            "Wheelchair Accessible",
-            "Elevator Access",
-            "Dishwasher",
-            "Gym/Fitness Center",
-            "Air Conditioning",
-            "Balcony/Patio",
-            "Smart TV",
-            "Coffee Maker",
-          ].map((amenity) => (
-            <div key={amenity}>
-              <input
-                type="checkbox"
-                id={`amenity_${amenity}`}
-                name="amenities"
-                value={amenity}
-                className="mr-2"
-                defaultChecked={property.amenities.includes(amenity)}
+        {/* 3. Description */}
+        <div className="space-y-1.5">
+          <Label
+            htmlFor="description"
+            className="text-sm font-bold text-zinc-900 flex items-center gap-2"
+          >
+            <FileText size={16} className="text-zinc-500" /> Description
+          </Label>
+          <Textarea
+            id="description"
+            name="description"
+            className="rounded-lg border-zinc-300 text-zinc-900 min-h-[100px] focus-visible:ring-black leading-relaxed p-3"
+            placeholder="Tell guests what makes your place special"
+            defaultValue={property.description}
+          ></Textarea>
+        </div>
+
+        {/* 4. Location */}
+        <div className="pt-6 border-t border-zinc-100">
+          <Label className="text-base font-bold text-zinc-900 flex items-center gap-2 mb-4">
+            <MapPin size={18} className="text-[#FF385C]" /> Location
+          </Label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+            <div className="space-y-1">
+              <Label className="text-[11px] font-bold text-zinc-500 uppercase">
+                Street
+              </Label>
+              <Input
+                name="location.street"
+                className="rounded-lg h-10 border-zinc-300"
+                placeholder="Street"
+                defaultValue={property.location.street}
               />
-              <label htmlFor={`amenity_${amenity}`}>{amenity}</label>
             </div>
-          ))}
+            <div className="space-y-1">
+              <Label className="text-[11px] font-bold text-zinc-500 uppercase">
+                City
+              </Label>
+              <Input
+                name="location.city"
+                className="rounded-lg h-10 border-zinc-300"
+                placeholder="City"
+                required
+                defaultValue={property.location.city}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[11px] font-bold text-zinc-500 uppercase">
+                State
+              </Label>
+              <Input
+                name="location.state"
+                className="rounded-lg h-10 border-zinc-300"
+                placeholder="State"
+                required
+                defaultValue={property.location.state}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[11px] font-bold text-zinc-500 uppercase">
+                Zipcode
+              </Label>
+              <Input
+                name="location.zipcode"
+                className="rounded-lg h-10 border-zinc-300"
+                placeholder="Zipcode"
+                defaultValue={property.location.zipcode}
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* 7. Rates */}
-      <div className="mb-4 bg-blue-50 p-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Rates (Leave blank if not applicable)
-        </label>
-        <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-          <div className="flex items-center">
-            <label className="mr-2">Weekly</label>
-            <input
-              type="number"
-              name="rates.weekly"
-              className="border rounded w-full py-2 px-3"
-              defaultValue={property.rates.weekly}
-            />
+        {/* 5. Beds / Baths / Sqft */}
+        <div className="pt-6 border-t border-zinc-100">
+          <div className="grid grid-cols-3 gap-6">
+            <div className="space-y-1.5">
+              <Label className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+                <Bed size={16} className="text-zinc-500" /> Beds
+              </Label>
+              <Input
+                type="number"
+                name="beds"
+                className="rounded-lg h-10 border-zinc-300 font-medium"
+                required
+                defaultValue={property.beds}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+                <Bath size={16} className="text-zinc-500" /> Baths
+              </Label>
+              <Input
+                type="number"
+                name="baths"
+                className="rounded-lg h-10 border-zinc-300 font-medium"
+                required
+                defaultValue={property.baths}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+                <Maximize size={16} className="text-zinc-500" /> Sqft
+              </Label>
+              <Input
+                type="number"
+                name="square_feet"
+                className="rounded-lg h-10 border-zinc-300 font-medium"
+                required
+                defaultValue={property.square_feet}
+              />
+            </div>
           </div>
-          <div className="flex items-center">
-            <label className="mr-2">Monthly</label>
-            <input
-              type="number"
-              name="rates.monthly"
-              className="border rounded w-full py-2 px-3"
-              defaultValue={property.rates.monthly}
-            />
+        </div>
+
+        {/* 6. Amenities */}
+        <div className="pt-6 border-t border-zinc-100">
+          <Label className="text-base font-bold text-zinc-900 flex items-center gap-2 mb-4">
+            <Sparkles size={18} className="text-[#FF385C]" /> Amenities
+          </Label>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-y-3 gap-x-4">
+            {[
+              "Wifi",
+              "Full kitchen",
+              "Washer & Dryer",
+              "Free Parking",
+              "Swimming Pool",
+              "Hot Tub",
+              "24/7 Security",
+              "Wheelchair Accessible",
+              "Elevator Access",
+              "Dishwasher",
+              "Gym/Fitness Center",
+              "Air Conditioning",
+              "Balcony/Patio",
+              "Smart TV",
+              "Coffee Maker",
+            ].map((amenity) => (
+              <div key={amenity} className="flex items-center space-x-2.5">
+                <Checkbox
+                  id={`amenity_${amenity}`}
+                  name="amenities"
+                  value={amenity}
+                  className="h-5 w-5 rounded border-zinc-300 data-[state=checked]:bg-black data-[state=checked]:border-black"
+                  defaultChecked={property.amenities.includes(amenity)}
+                />
+                <Label
+                  htmlFor={`amenity_${amenity}`}
+                  className="text-sm font-medium text-zinc-700 cursor-pointer select-none"
+                >
+                  {amenity}
+                </Label>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center">
-            <label className="mr-2">Nightly</label>
-            <input
-              type="number"
-              name="rates.nightly"
-              className="border rounded w-full py-2 px-3"
-              defaultValue={property.rates.nightly}
+        </div>
+
+        {/* 7. Rates */}
+        <div className="pt-6 border-t border-zinc-100">
+          <Label className="text-base font-bold text-zinc-900 flex items-center gap-2 mb-4">
+            <DollarSign size={18} className="text-zinc-900" /> Rates (optional)
+          </Label>
+          <div className="grid grid-cols-3 gap-6">
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold text-zinc-400 uppercase">
+                Nightly
+              </Label>
+              <Input
+                type="number"
+                name="rates.nightly"
+                className="rounded-lg h-10 border-zinc-300 font-bold"
+                placeholder="0"
+                defaultValue={property.rates.nightly}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold text-zinc-400 uppercase">
+                Weekly
+              </Label>
+              <Input
+                type="number"
+                name="rates.weekly"
+                className="rounded-lg h-10 border-zinc-300 font-bold"
+                placeholder="0"
+                defaultValue={property.rates.weekly}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[10px] font-bold text-zinc-400 uppercase">
+                Monthly
+              </Label>
+              <Input
+                type="number"
+                name="rates.monthly"
+                className="rounded-lg h-10 border-zinc-300 font-bold"
+                placeholder="0"
+                defaultValue={property.rates.monthly}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* 8. Seller Info */}
+        <div className="pt-6 border-t border-zinc-100">
+          <Label className="text-base font-bold text-zinc-900 flex items-center gap-2 mb-4">
+            <User size={18} className="text-zinc-500" /> Seller Info
+          </Label>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Input
+              name="seller_info.name"
+              className="rounded-lg h-10 border-zinc-300"
+              placeholder="Name"
+              defaultValue={property.seller_info.name}
+            />
+            <Input
+              type="email"
+              name="seller_info.email"
+              className="rounded-lg h-10 border-zinc-300"
+              placeholder="Email"
+              required
+              defaultValue={property.seller_info.email}
+            />
+            <Input
+              type="tel"
+              name="seller_info.phone"
+              className="rounded-lg h-10 border-zinc-300"
+              placeholder="Phone"
+              defaultValue={property.seller_info.phone}
             />
           </div>
         </div>
-      </div>
 
-      {/* 8. Seller Info */}
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Seller Name
-        </label>
-        <input
-          type="text"
-          name="seller_info.name"
-          className="border rounded w-full py-2 px-3"
-          placeholder="Name"
-          defaultValue={property.seller_info.name}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Seller Email
-        </label>
-        <input
-          type="email"
-          name="seller_info.email"
-          className="border rounded w-full py-2 px-3"
-          placeholder="Email address"
-          required
-          defaultValue={property.seller_info.email}
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
-          Seller Phone
-        </label>
-        <input
-          type="tel"
-          name="seller_info.phone"
-          className="border rounded w-full py-2 px-3"
-          placeholder="Phone"
-          defaultValue={property.seller_info.phone}
-        />
-      </div>
+        {/* 9. Image Management Component */}
+        <div className="pt-10 border-t border-zinc-100">
+          <PropertyImageEdit
+            initialImages={property.images}
+            onImageStateChange={handleImageStateChange}
+          />
+        </div>
 
-      {/* 9. Image Management Component */}
-      <div className="mb-8">
-        <PropertyImageEdit
-          initialImages={property.images}
-          onImageStateChange={handleImageStateChange}
-        />
-      </div>
-
-      {/* 10. Submit Button */}
-      <div>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Updating..." : "Update Property"}
-        </button>
+        {/* 10. Submit Button */}
+        <div className="pt-6">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full h-12 rounded-lg bg-black hover:bg-zinc-800 text-white font-bold text-lg shadow-sm transition-all active:scale-[0.99]"
+          >
+            {loading ? (
+              <div className="flex items-center gap-2">
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Updating Listing...</span>
+              </div>
+            ) : (
+              "Save Changes"
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );

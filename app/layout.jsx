@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { GlobalProvider } from "@/context/GlobalContext";
 import AuthProvider from "@/components/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
-
+import "photoswipe/dist/photoswipe.css";
 import { ToastContainer } from "react-toastify";
 export const metadata = {
   title: "property pulse",

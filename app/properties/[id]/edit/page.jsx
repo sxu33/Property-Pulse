@@ -10,14 +10,18 @@ const PropertyEdit = async ({ params }) => {
 
   const propertydoc = await Property.findById(id).lean();
   if (!propertydoc) {
-    return <p>No property found</p>;
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <p className="text-zinc-500 font-light">No property found</p>
+      </div>
+    );
   }
   const property = convertToSerializableObject(propertydoc);
 
   return (
-    <section className="bg-blue-50">
-      <div className="container m-auto max-w-2xl py-24">
-        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
+    <section className="bg-white min-h-screen">
+      <div className="container mx-auto max-w-4xl py-12 px-4 sm:px-6">
+        <div className="bg-white">
           <PropertyEditForm property={property} />
         </div>
       </div>
