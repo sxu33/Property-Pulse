@@ -1,30 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/images/logo.png";
+import { Globe } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    // <!-- Footer -->
-    <footer className="bg-gray-200 py-4 mt-24">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
-        <div className="mb-4 md:mb-0">
-          <Image src={logo} alt="Logo" className="h-8 w-auto" />
+    <footer className="bg-gray-50 border-t border-gray-200 py-12">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-gray-600">
+          <p>&copy; {currentYear} PropertyPulse, Inc.</p>
+          <span className="hidden md:inline">·</span>
+          <Link href="/" className="hover:underline">
+            Privacy
+          </Link>
+          <span className="hidden md:inline">·</span>
+          <Link href="/" className="hover:underline">
+            Terms
+          </Link>
+          <span className="hidden md:inline">·</span>
+          <Link href="/properties" className="hover:underline">
+            Sitemap
+          </Link>
         </div>
-        <div className="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0">
-          <ul className="flex space-x-4">
-            <li>
-              <Link href="/properties">Properties</Link>
-            </li>
-            <li>
-              <Link href="/">Terms of Service</Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="text-sm text-gray-500 mt-2 md:mt-0">
-            &copy; {currentYear} PropertyPulse. All rights reserved.
-          </p>
+
+        <div className="flex items-center gap-6 font-semibold text-sm text-gray-900">
+          <div className="flex items-center gap-2 cursor-pointer hover:underline">
+            <Globe className="h-4 w-4" />
+            <span>English (US)</span>
+          </div>
+          <div className="flex items-center gap-2 cursor-pointer hover:underline">
+            <span>$ USD</span>
+          </div>
         </div>
       </div>
     </footer>

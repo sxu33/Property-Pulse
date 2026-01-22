@@ -2,39 +2,44 @@ import PropertyCard from "./PropertyCard";
 import Link from "next/link";
 import Property from "@/models/Property";
 import connectDB from "@/config/database";
-import { connection } from "mongoose";
+import { Button } from "@/components/ui/button";
 
 const HomeProperties = async () => {
   await connectDB();
   const recentProperties = await Property.find({})
     .sort({ createdAt: -1 })
-    .limit(3)
+    .limit(6)
     .lean();
+
   return (
     <>
-      <section className="px-4 py-6">
-        <div className="container-xl lg:container m-auto px-4 py-6">
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+              New this week
+            </h2>
+          </div>
           {recentProperties.length === 0 ? (
-            <p>No properties found</p>
+            <p className="text-gray-500">No properties found</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
               {recentProperties.map((property) => (
-                <PropertyCard
-                  key={property._id}
-                  property={property}
-                ></PropertyCard>
+                <PropertyCard key={property._id} property={property} />
               ))}
             </div>
           )}
         </div>
       </section>
-      <section className="m-auto max-w-lg my-10 px-6">
-        <Link
-          href="/properties"
-          className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
+
+      <section className="max-w-7xl mx-auto px-4 pb-20 text-center">
+        <Button
+          asChild
+          variant="outline"
+          className="h-12 px-8 rounded-lg border-2 border-black font-bold text-black hover:bg-gray-50"
         >
-          View all Properties
-        </Link>
+          <Link href="/properties">Show all properties</Link>
+        </Button>
       </section>
     </>
   );
