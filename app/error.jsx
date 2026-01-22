@@ -1,30 +1,34 @@
 "use client";
 import Link from "next/link";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { TriangleAlert } from "lucide-react";
 
 const ErrorPage = ({ error }) => {
   return (
-    <section className="bg-blue-50 min-h-screen flex-grow">
-      <div className="container m-auto max-w-2xl py-24">
-        <div className="bg-white px-6 py-24 mb-4 shadow-md rounded-md border m-4 md:m-0">
-          <div className="flex justify-center">
-            <FaExclamationTriangle className="fas fa-exclamation-triangle fa-5x text-8xl text-yellow-400"></FaExclamationTriangle>
-          </div>
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mt-4 mb-2">
-              Something went wrong
-            </h1>
-            <p className="text-gray-500 text-xl mb-10">{error.toString()}</p>
-            <Link
-              href="/"
-              className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-4 px-6 rounded"
-            >
-              Go Home
-            </Link>
+    <section className="bg-white min-h-screen flex items-center justify-center p-6">
+      <div className="max-w-md w-full text-center space-y-8">
+        <div className="flex justify-center">
+          <div className="p-6 bg-zinc-50 rounded-full">
+            <TriangleAlert
+              className="text-zinc-900"
+              size={64}
+              strokeWidth={1.5}
+            />
           </div>
         </div>
+        <div className="space-y-3">
+          <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
+            Something went wrong
+          </h1>
+        </div>
+        <div className="pt-4">
+          <Link
+            href="/"
+            className="inline-block bg-zinc-900 hover:bg-black text-white font-bold py-4 px-10 rounded-xl transition-all active:scale-95 shadow-sm"
+          >
+            Go Home
+          </Link>
+        </div>
       </div>
-      <div className="flex-grow"></div>
     </section>
   );
 };
