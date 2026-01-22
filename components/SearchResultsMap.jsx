@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import getGeocoords from "@/utils/getGeocoords"; // 你的 geocode 工具函数
-import Spinner from "@/components/Spinner";
+import getGeocoords from "@/utils/getGeocoords";
 import Image from "next/image";
+import { Loader2 } from "lucide-react";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -25,12 +25,9 @@ const SearchResultsMap = ({ properties }) => {
     const fetchCoordsForProperties = async () => {
       try {
         const results = [];
-
         for (const property of properties) {
           const address = `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`;
-
           const coords = await getGeocoords(address);
-
           if (coords.lat !== 0 && coords.lng !== 0) {
             results.push({ ...property, lat: coords.lat, lng: coords.lng });
           }
@@ -50,66 +47,66 @@ const SearchResultsMap = ({ properties }) => {
     }
   }, [properties]);
 
-  if (loading) return <Spinner loading={loading} />;
-
-  if (propertiesWithCoords.length === 0) {
+  if (loading)
     return (
-      <div className="h-full flex items-center justify-center text-gray-500">
-        No mappable properties found
+      <div className="h-full w-full bg-white flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#FF385C]" size={24} />
       </div>
     );
-  }
 
-  // set the first property's geocoords as the center
+  if (propertiesWithCoords.length === 0) return null;
+
   const center = [propertiesWithCoords[0].lat, propertiesWithCoords[0].lng];
 
   return (
-    <div className="h-full w-full rounded-lg overflow-hidden border sticky top-4">
+    <div className="h-full w-full overflow-hidden">
       <MapContainer
         center={center}
         zoom={10}
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         />
 
-        {/* Create marker for each property's coords */}
         {propertiesWithCoords.map((prop) => (
           <Marker key={prop._id} position={[prop.lat, prop.lng]}>
-            {/* popup */}
-            <Popup>
-              <div className="w-[160px]">
-                {/* image */}
-                <div className="relative w-full h-[100px] mb-2">
+            <Popup minWidth={150} maxWidth={150}>
+              <div className="flex flex-col bg-white">
+                <div className="relative w-full h-20 rounded-md overflow-hidden mb-1">
                   <Image
                     src={prop.images[0]}
                     alt={prop.name}
                     fill
-                    className="object-cover rounded"
-                    sizes="160px"
+                    className="object-cover"
+                    sizes="150px"
                   />
                 </div>
-                {/* 2. Title */}
-                <strong className="text-sm block mb-1 leading-tight truncate">
-                  {prop.name}
-                </strong>
-                {/* 3. price */}
-                <span className="text-xs text-gray-600 block mb-1">
-                  {prop.rates.monthly
-                    ? `$${prop.rates.monthly.toLocaleString()} /mo`
-                    : prop.rates.weekly
-                    ? `$${prop.rates.weekly.toLocaleString()} /wk`
-                    : `$${prop.rates.nightly.toLocaleString()} /night`}
-                </span>
-                {/* 4. Detailes link */}
-                <a
-                  href={`/properties/${prop._id}`}
-                  className="inline-block bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600 no-underline"
-                >
-                  View Details
-                </a>
+                <div className="px-0.5">
+                  <p className="text-zinc-950 font-black text-[13px] leading-tight truncate mb-0">
+                    {prop.name}
+                  </p>
+                  <p className="text-zinc-400 text-[9px] font-bold uppercase tracking-tight mb-1">
+                    {prop.location.city}
+                  </p>
+                  <div className="flex items-center justify-between border-t border-zinc-100 pt-1">
+                    <p className="text-zinc-950 font-black text-[11px]">
+                      $
+                      {prop.rates.monthly?.toLocaleString() ||
+                        prop.rates.nightly?.toLocaleString()}
+                      <span className="text-zinc-400 font-normal text-[8px]">
+                        /mo
+                      </span>
+                    </p>
+                    <a
+                      href={`/properties/${prop._id}`}
+                      className="text-[#FF385C] text-[10px] font-black no-underline"
+                    >
+                      Details
+                    </a>
+                  </div>
+                </div>
               </div>
             </Popup>
           </Marker>

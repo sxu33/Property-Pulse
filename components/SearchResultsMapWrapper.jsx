@@ -1,12 +1,16 @@
 "use client";
 import dynamic from "next/dynamic";
-import Spinner from "@/components/Spinner";
+import { Loader2 } from "lucide-react";
 
 const SearchResultsMap = dynamic(
   () => import("@/components/SearchResultsMap"),
   {
     ssr: false,
-    loading: () => <Spinner loading={true} />,
+    loading: () => (
+      <div className="h-full w-full bg-zinc-50 flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#FF385C]" size={40} />
+      </div>
+    ),
   }
 );
 
