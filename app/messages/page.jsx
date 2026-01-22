@@ -32,22 +32,31 @@ const MessagePage = async () => {
     message.property = convertToSerializableObject(messageDoc.property);
     return message;
   });
-  console.log(messages);
-  return (
-    <section className="bg-blue-50">
-      <div className="container m-auto py-24 max-w-6xl">
-        <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
-          <h1 className="text-3xl font-bold mb-4">Your Messages</h1>
 
-          <div className="space-y-4">
-            {messages.length === 0 ? (
-              <p>You have no messages</p>
-            ) : (
-              messages.map((message) => (
-                <MessageCard key={message._id.toString()} message={message} />
-              ))
-            )}
-          </div>
+  return (
+    <section className="bg-white min-h-screen">
+      <div className="max-w-4xl mx-auto px-6 py-12 md:py-20">
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-zinc-950 tracking-tight">
+            Your Messages
+          </h1>
+          <p className="text-zinc-500 font-light mt-2 text-lg leading-relaxed">
+            View and manage inquiries for your properties.
+          </p>
+        </div>
+
+        <div className="space-y-8">
+          {messages.length === 0 ? (
+            <div className="text-center py-24 border border-dashed border-zinc-200 rounded-[3rem] bg-zinc-50/30">
+              <p className="text-zinc-400 font-light text-xl italic">
+                You have no messages at the moment.
+              </p>
+            </div>
+          ) : (
+            messages.map((message) => (
+              <MessageCard key={message._id.toString()} message={message} />
+            ))
+          )}
         </div>
       </div>
     </section>
