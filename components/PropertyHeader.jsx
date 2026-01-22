@@ -1,19 +1,17 @@
 import Image from "next/image";
+
 const PropertyHeader = ({ property }) => {
   return (
-    <section>
-      <div className="container-xl m-auto">
-        <div className="grid grid-cols-1">
-          <Image
-            src={property.images[0]}
-            alt=""
-            className="object-cover h-[400px] w-full"
-            width={0}
-            height={0}
-            sizes="100vw"
-          />
-        </div>
-      </div>
+    <section className="w-full h-[40vh] md:h-[60vh] relative overflow-hidden">
+      <Image
+        src={property.images[0]}
+        alt={property.name}
+        className="object-cover"
+        fill
+        priority
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-black/5"></div>
     </section>
   );
 };

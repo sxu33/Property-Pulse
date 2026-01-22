@@ -39,18 +39,25 @@ const BookmarkButton = ({ property, initialBookmarkStatus }) => {
 
   return (
     <Button
-      className="w-full rounded-full gap-2"
-      variant={optimisticIsBookmarked ? "destructive" : "default"}
+      className={`w-full h-12 rounded-xl gap-2 font-bold text-base transition-all active:scale-[0.98] border-2 shadow-none ${
+        optimisticIsBookmarked
+          ? "bg-zinc-900 border-zinc-900 text-white hover:bg-black hover:border-black"
+          : "bg-white border-zinc-900 text-zinc-900 hover:bg-zinc-50"
+      }`}
       onClick={() => handleClick()}
       disabled={isLoading}
     >
       {isLoading ? (
-        <Loader2 className="animate-spin size={20}" />
+        <Loader2 className="animate-spin" size={20} />
       ) : (
-        <Bookmark size={20} className={isBookmarked ? "fill-current" : ""} />
+        <Bookmark
+          size={20}
+          className={`${optimisticIsBookmarked ? "fill-white" : "fill-none"}`}
+          strokeWidth={2.5}
+        />
       )}
 
-      {isBookmarked ? "remove bookmark" : "bookmark"}
+      {optimisticIsBookmarked ? "Saved" : "Save Listing"}
     </Button>
   );
 };

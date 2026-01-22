@@ -1,89 +1,69 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaBed,
-  FaBath,
-  FaRulerCombined,
-  FaMoneyBill,
-  FaMapMarker,
-} from "react-icons/fa";
+import { Bed, Bath, Square, Star } from "lucide-react";
 
 const PropertyCard = ({ property }) => {
   const getRateDisplay = () => {
     const { rates } = property;
-    if (rates.monthly) {
-      return `$${rates.monthly.toLocaleString()}/mo`;
-    } else if (rates.weekly) {
-      return `$${rates.weekly.toLocaleString()}/wk`;
-    } else if (rates.nightly) {
-      return `$${rates.nightly.toLocaleString()}/night`;
-    }
+    if (rates.monthly) return `$${rates.monthly.toLocaleString()}`;
+    if (rates.weekly) return `$${rates.weekly.toLocaleString()}`;
+    if (rates.nightly) return `$${rates.nightly.toLocaleString()}`;
+  };
+
+  const getUnit = () => {
+    const { rates } = property;
+    if (rates.monthly) return "month";
+    if (rates.weekly) return "week";
+    return "night";
   };
 
   return (
-    //    <!-- Listing 1 -->
-    <div className="rounded-xl shadow-md w-full relative aspect-8/3">
-      <Link href={`/properties/${property._id}`}>
+    <div className="group flex flex-col gap-3">
+      <Link
+        href={`/properties/${property._id}`}
+        className="relative aspect-square overflow-hidden rounded-2xl bg-gray-100"
+      >
         <Image
           src={property.images[0]}
-          alt=""
-          className="w-full h-auto rounded-t-xl"
-          width="0"
-          height="0"
-          sizes="100vw"
+          alt={property.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+        <div className="absolute top-3 right-3 text-white drop-shadow-md">
+          <Star className="h-5 w-5 fill-white" />
+        </div>
       </Link>
 
-      <div className="p-4">
-        <div className="text-left md:text-center lg:text-left mb-6">
-          <div className="text-gray-600">{property.type}</div>
-          <h3 className="text-xl font-bold">{property.name}</h3>
-        </div>
-        <h3 className="absolute top-2.5 right-2.5 bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right">
-          {getRateDisplay()}
-        </h3>
-
-        <div className="flex justify-center gap-4 text-gray-500 mb-4">
-          <p>
-            <FaBed className="md:hidden lg:inline"></FaBed> {property.beds}{" "}
-            <span className="md:hidden lg:inline">Beds</span>
-          </p>
-          <p>
-            <FaBath className="md:hidden lg:inline"></FaBath> {property.baths}{" "}
-            <span className="md:hidden lg:inline">Baths</span>
-          </p>
-          <p>
-            <FaRulerCombined className="md:hidden lg:inline" />
-            {property.square_feet}{" "}
-            <span className="md:hidden lg:inline">sqft</span>
-          </p>
-        </div>
-
-        <div className="flex justify-center gap-4 text-green-900 text-sm mb-4">
-          <p>
-            <FaMoneyBill className="md:hidden lg:inline"></FaMoneyBill> Weekly
-          </p>
-          <p>
-            <FaMoneyBill className="md:hidden lg:inline"></FaMoneyBill> Monthly
-          </p>
-        </div>
-
-        <div className="border border-gray-100 mb-5"></div>
-
-        <div className="flex flex-col lg:flex-row justify-between mb-4">
-          <div className="flex align-middle gap-2 mb-4 lg:mb-0">
-            <FaMapMarker className="text-orange-700 mt-1"></FaMapMarker>
-            <span className="text-orange-700">
-              {" "}
-              {property.location.city} {property.location.state}{" "}
-            </span>
+      <div className="flex flex-col gap-1">
+        <div className="flex justify-between items-start text-[15px]">
+          <h3 className="font-bold text-gray-900 line-clamp-1">
+            {property.location.city}, {property.location.state}
+          </h3>
+          <div className="flex items-center gap-1 font-light text-gray-600">
+            <span>★ 4.9</span>
           </div>
-          <Link
-            href={`/properties/${property._id}`}
-            className="h-9 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
-          >
-            Details
-          </Link>
+        </div>
+
+        <p className="text-gray-500 font-light text-[15px] line-clamp-1">
+          {property.name}
+        </p>
+
+        <div className="flex items-center gap-3 text-gray-400 text-xs my-0.5">
+          <span className="flex items-center gap-1">
+            <Bed size={14} /> {property.beds} beds
+          </span>
+          <span className="flex items-center gap-1">
+            <Bath size={14} /> {property.baths} baths
+          </span>
+          <span className="flex items-center gap-1">
+            <Square size={14} /> {property.square_feet}ft²
+          </span>
+        </div>
+
+        <div className="mt-1 text-[15px]">
+          <span className="font-bold text-gray-900">{getRateDisplay()}</span>
+          <span className="text-gray-600 font-light"> {getUnit()}</span>
         </div>
       </div>
     </div>

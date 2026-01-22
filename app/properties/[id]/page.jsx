@@ -2,7 +2,7 @@ import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import PropertyHeader from "@/components/PropertyHeader";
 import Link from "next/link";
-import { FaArrowLeft } from "react-icons/fa";
+import { ChevronLeft } from "lucide-react";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyImages from "@/components/PropertyImages";
 import { convertToSerializableObject } from "@/utils/convertToSerializableObject";
@@ -14,59 +14,57 @@ import User from "@/models/User";
 
 const PropertyPage = async ({ params, searchParams }) => {
   const { id } = await params;
-  const { name } = await searchParams;
 
   await connectDB();
   const propertyDoc = await Property.findById(id).lean();
   const property = convertToSerializableObject(propertyDoc);
   let initialBookmarkStatus = false;
   const sessionUser = await getSessionUser();
-  console.log(sessionUser);
   const userId = sessionUser?.userId;
-  console.log(userId);
+
   if (userId) {
     const user = await User.findById(userId);
-    console.log(user);
     if (user) {
       initialBookmarkStatus = user.bookmarks.includes(id);
     }
   }
 
-  console.log(initialBookmarkStatus);
-
   return (
-    <>
+    <div className="bg-white min-h-screen">
       <PropertyHeader property={property} />
       {/* <!-- Go Back --> */}
       <section>
-        <div className="container m-auto py-6 px-6">
+        <div className="max-w-6xl mx-auto py-4 px-6">
           <Link
             href="/properties"
-            className="text-blue-500 hover:text-blue-600 flex items-center"
+            className="text-zinc-900 hover:underline flex items-center gap-1 text-sm font-bold"
           >
-            <FaArrowLeft className="mr-2" /> Back to Properties
+            <ChevronLeft size={14} /> Back to listings
           </Link>
         </div>
       </section>
-      <section className="bg-blue-50">
-        <div className="container m-auto py-10 px-6">
-          <div className="grid grid-cols-1 md:grid-cols-70-30 w-full gap-6">
-            {/* {property info} */}
+      <section>
+        <div className="max-w-6xl mx-auto pb-12 px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12">
             <PropertyDetails property={property} />
             <aside>
-              <BookmarkButton
-                property={property}
-                initialBookmarkStatus={initialBookmarkStatus}
-              />
-              <ShareButtons property={property} />
-              <PropertyContactForm property={property} />
+              <div className="sticky top-28 space-y-4">
+                <PropertyContactForm property={property} />
+                <div className="space-y-2 px-2">
+                  <BookmarkButton
+                    property={property}
+                    initialBookmarkStatus={initialBookmarkStatus}
+                  />
+                  <ShareButtons property={property} />
+                </div>
+              </div>
             </aside>
           </div>
         </div>
       </section>
 
       <PropertyImages images={property.images} />
-    </>
+    </div>
   );
 };
 
