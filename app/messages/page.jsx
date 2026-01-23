@@ -4,7 +4,7 @@ import Message from "@/models/Message";
 import MessageCard from "@/components/MessageCard";
 import "@/models/Property";
 import { convertToSerializableObject } from "@/utils/convertToSerializableObject";
-
+export const dynamic = "force-dynamic";
 const MessagePage = async () => {
   await connectDB();
   const sessionUser = await getSessionUser();

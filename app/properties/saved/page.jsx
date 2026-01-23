@@ -4,7 +4,7 @@ import { getSessionUser } from "@/utils/getSessionUser";
 import PropertyCard from "@/components/PropertyCard";
 import { Bookmark, Home } from "lucide-react";
 import { convertToSerializableObject } from "@/utils/convertToSerializableObject";
-
+export const dynamic = "force-dynamic";
 const SavedPropertiesPage = async () => {
   await connectDB();
   const { userId } = await getSessionUser();
